@@ -1,0 +1,88 @@
+.table-container{
+    margin-top: 70px;
+  
+    padding: 20px;
+
+}
+.heading {
+    text-align: center; /* Center the heading horizontally */
+    position: relative; /* Allow absolute positioning for the pseudo-element */
+   font-size: 50px;
+    margin-left: 5%;
+    margin-top: 50px;
+   
+  }
+  
+ 
+
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 4px double black;
+    background-color: lightgray;
+
+}
+
+.bluebackground {
+    background-color:#0096FF;
+    color: white; /* Ensure text is readable */
+
+  }
+
+  td{
+    padding: 8px;
+    text-align: center;
+    border: 4px double black;
+  }
+
+  input[type="text" ] {
+    width: 100%; /* Full width of the cell */
+    box-sizing: border-box; /* Include padding and border in the width */
+    padding: 4px; /* Space inside the input */
+    border: 1px solid #FFFFFF; /* White border for the input field */
+    background:transparent;
+    color: #000000; /* Text color inside the input field */
+    border: none; /* No border around the editable area */
+      outline: none;
+  }
+
+  input[type="date"]{
+    width: 100%; /* Full width of the cell */
+    box-sizing: border-box; /* Include padding and border in the width */
+    padding: 4px; /* Space inside the input */
+    border: 1px solid #FFFFFF; /* White border for the input field */
+    background:transparent;
+    color: #000000; /* Text color inside the input field */
+    border: none; /* No border around the editable area */
+      outline: none;
+  }
+
+ 
+  .custom-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 4px double black; /* Light gray border */
+    padding: 8px;
+}
+
+.custom-table th {
+    background-color: #0096FF; /* Light background for header */
+}
+
+.custom-table td {
+    background-color: lightgray;
+}
+
+.my-3{
+    border: 4px double black;
+}
+
+.form-control{
+    background: transparent;
+    border: none;
+}

@@ -1,0 +1,27 @@
+<div class="background">
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <h3>
+      <img src="image/Speridian logo.png" alt="Logo" class="logo">
+  </h3>
+
+  <label class="form-label" for="username">Username</label>
+  <input type="text" id="username" formControlName="email" placeholder="Username">
+  <div class="text-danger"
+       *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].touched || loginForm.controls['email'].dirty)">
+      <span *ngIf="loginForm.controls['email'].errors?.['required']">This is required</span>
+  </div>
+
+  <label for="password">Password</label>
+  <input type="password" id="password" formControlName="password" placeholder="Password">
+  <div class="text-danger"
+       *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)">
+      <span *ngIf="loginForm.controls['password'].errors?.['required']">This is required</span>
+  </div>
+
+  <button type="submit" onclick="login()">Log In</button>
+
+</form>

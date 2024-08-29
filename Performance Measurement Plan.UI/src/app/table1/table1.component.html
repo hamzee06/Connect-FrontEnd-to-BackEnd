@@ -1,0 +1,259 @@
+<form [formGroup]="userform1" class="container">
+    <div>
+        <img src="image/Speridian logo.png" alt="image" class="logo">
+    </div>
+   
+    <div>
+        <h1 class="heading">Quarterly Objectives, Goals & <br>Accomplishments</h1>
+    </div>
+    
+    <div class="table-container">
+        <table>
+            <tr>
+                <td class="bluebackground"><b>Employee Name:</b></td>
+                <td>
+                    <input type="text" id="empname" formControlName="empname" class="form-control" placeholder="Enter your name">
+                    <div class="text-danger" *ngIf="userform1.controls['empname'].invalid && (isFormsubmitted || userform1.controls['empname'].dirty || userform1.controls['empname'].touched)">
+                        <span *ngIf="userform1.controls['empname'].errors?.['required']">Name is required.</span>
+                        <span *ngIf="userform1.controls['empname'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                    </div>
+                </td>
+                <td class="bluebackground"><b>Manager Name:</b></td>
+                <td>
+                    <input type="text" id="mngname" formControlName="mngname" class="form-control" placeholder="Enter Manager Name">
+                    <div class="text-danger" *ngIf="userform1.controls['mngname'].invalid && (isFormsubmitted || userform1.controls['mngname'].dirty || userform1.controls['mngname'].touched)">
+                        <span *ngIf="userform1.controls['mngname'].errors?.['required']">Name is required.</span>
+                        <span *ngIf="userform1.controls['mngname'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="bluebackground"><b>Current Role:</b></td>
+                <td>
+                    <input type="text" id="role" formControlName="role" class="form-control" placeholder="Your Role">
+                    <div class="text-danger" *ngIf="userform1.controls['role'].invalid && (isFormsubmitted || userform1.controls['role'].dirty || userform1.controls['role'].touched)">
+                        <span *ngIf="userform1.controls['role'].errors?.['required']">Role is required.</span>
+                        <span *ngIf="userform1.controls['role'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                    </div>
+                </td>
+                <td class="bluebackground"></td>
+                <td class="bluebackground"></td>
+            </tr>
+
+            <tr>
+                <td class="bluebackground"><b>Target Duration:</b></td>
+                <td>
+                   
+                    <label for="quarterSelect" class="form-label"><b>Select Quarter</b></label>
+                    <select id="quarterSelect" class="form-select" (change)="onQuarterChange($event)">
+                        <option value="">Select the Quarter</option>
+                        <option value="Q1">Q1</option>
+                        <option value="Q2">Q2</option>
+                        <option value="Q3">Q3</option>
+                        <option value="Q4">Q4</option>
+                    </select>
+                   
+                </td>
+                <td class="bluebackground"><b>Submitted Date:</b></td>
+                <td>
+                    <input type="date" id="subdate" formControlName="subdate" class="form-control" [attr.max]="maxDate" [attr.min]="minDate" [attr.disabled]="isDateDisabled ? true : null">
+                    <div class="text-danger" *ngIf="userform1.controls['subdate'].invalid && (isFormsubmitted || userform1.controls['subdate'].dirty || userform1.controls['subdate'].touched)">
+                        <span *ngIf="userform1.controls['subdate'].errors?.['required']">Submitted Date is required.</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div *ngIf="dynamicHeading" class="text-center">
+        <h2>{{ dynamicHeading }}</h2>
+    </div>
+</form>
+
+    <form [formGroup]="userform2" class="container">
+
+    <div *ngIf="selectedQuarter">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th class="text-content">Employee</th>
+                    <th class="text-content" colspan="2">Manager</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Q1 Section -->
+                <tr *ngIf="selectedQuarter === 'Q1'">
+                    <td>
+                        <div class="form-group">
+                            <label for="goals" class="form-label">Goals</label>
+                            <textarea id="goals" formControlName="goals" class="form-control" placeholder="Type your goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['goals'].invalid && (isFormsubmitted || userform2.controls['goals'].dirty || userform2.controls['goals'].touched)">
+                                <span *ngIf="userform2.controls['goals'].errors?.['required']">Goals are required.</span>
+                                <span *ngIf="userform2.controls['goals'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="achievements" class="form-label">Achievements</label>
+                            <textarea id="achievements" formControlName="achievements" class="form-control" placeholder="Type your achievements" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['achievements'].invalid && (isFormsubmitted || userform2.controls['achievements'].dirty || userform2.controls['achievements'].touched)">
+                                <span *ngIf="userform2.controls['achievements'].errors?.['required']">Achievements are required.</span>
+                                <span *ngIf="userform2.controls['achievements'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="expectations" class="form-label">Expectations</label>
+                            <textarea id="expectations" formControlName="expectations" class="form-control" placeholder="Manager defined goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['expectations'].invalid && (isFormsubmitted || userform2.controls['expectations'].dirty || userform2.controls['expectations'].touched)">
+                                <span *ngIf="userform2.controls['expectations'].errors?.['required']">Expectations are required.</span>
+                                <span *ngIf="userform2.controls['expectations'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea id="remarks" formControlName="remarks" class="form-control" placeholder="Manager's remarks" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['remarks'].invalid && (isFormsubmitted || userform2.controls['remarks'].dirty || userform2.controls['remarks'].touched)">
+                                <span *ngIf="userform2.controls['remarks'].errors?.['required']">Remarks are required.</span>
+                                <span *ngIf="userform2.controls['remarks'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Q2 Section -->
+                <tr *ngIf="selectedQuarter === 'Q2'">
+                    <td>
+                        <div class="form-group">
+                            <label for="goals" class="form-label">Goals</label>
+                            <textarea id="goals" formControlName="goals" class="form-control" placeholder="Type your goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['goals'].invalid && (isFormsubmitted || userform2.controls['goals'].dirty || userform2.controls['goals'].touched)">
+                                <span *ngIf="userform2.controls['goals'].errors?.['required']">Goals are required.</span>
+                                <span *ngIf="userform2.controls['goals'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="achievements" class="form-label">Achievements</label>
+                            <textarea id="achievements" formControlName="achievements" class="form-control" placeholder="Type your achievements" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['achievements'].invalid && (isFormsubmitted || userform2.controls['achievements'].dirty || userform2.controls['achievements'].touched)">
+                                <span *ngIf="userform2.controls['achievements'].errors?.['required']">Achievements are required.</span>
+                                <span *ngIf="userform2.controls['achievements'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="expectations" class="form-label">Expectations</label>
+                            <textarea id="expectations" formControlName="expectations" class="form-control" placeholder="Manager defined goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['expectations'].invalid && (isFormsubmitted || userform2.controls['expectations'].dirty || userform2.controls['expectations'].touched)">
+                                <span *ngIf="userform2.controls['expectations'].errors?.['required']">Expectations are required.</span>
+                                <span *ngIf="userform2.controls['expectations'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea id="remarks" formControlName="remarks" class="form-control" placeholder="Manager's remarks" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['remarks'].invalid && (isFormsubmitted || userform2.controls['remarks'].dirty || userform2.controls['remarks'].touched)">
+                                <span *ngIf="userform2.controls['remarks'].errors?.['required']">Remarks are required.</span>
+                                <span *ngIf="userform2.controls['remarks'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Q3 Section -->
+                <tr *ngIf="selectedQuarter === 'Q3'">
+                    <td>
+                        <div class="form-group">
+                            <label for="goals" class="form-label">Goals</label>
+                            <textarea id="goals" formControlName="goals" class="form-control" placeholder="Type your goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['goals'].invalid && (isFormsubmitted || userform2.controls['goals'].dirty || userform2.controls['goals'].touched)">
+                                <span *ngIf="userform2.controls['goals'].errors?.['required']">Goals are required.</span>
+                                <span *ngIf="userform2.controls['goals'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="achievements" class="form-label">Achievements</label>
+                            <textarea id="achievements" formControlName="achievements" class="form-control" placeholder="Type your achievements" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['achievements'].invalid && (isFormsubmitted || userform2.controls['achievements'].dirty || userform2.controls['achievements'].touched)">
+                                <span *ngIf="userform2.controls['achievements'].errors?.['required']">Achievements are required.</span>
+                                <span *ngIf="userform2.controls['achievements'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="expectations" class="form-label">Expectations</label>
+                            <textarea id="expectations" formControlName="expectations" class="form-control" placeholder="Manager defined goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['expectations'].invalid && (isFormsubmitted || userform2.controls['expectations'].dirty || userform2.controls['expectations'].touched)">
+                                <span *ngIf="userform2.controls['expectations'].errors?.['required']">Expectations are required.</span>
+                                <span *ngIf="userform2.controls['expectations'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea id="remarks" formControlName="remarks" class="form-control" placeholder="Manager's remarks" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['remarks'].invalid && (isFormsubmitted || userform2.controls['remarks'].dirty || userform2.controls['remarks'].touched)">
+                                <span *ngIf="userform2.controls['remarks'].errors?.['required']">Remarks are required.</span>
+                                <span *ngIf="userform2.controls['remarks'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Q4 Section -->
+                <tr *ngIf="selectedQuarter === 'Q4'">
+                    <td>
+                        <div class="form-group">
+                            <label for="goals" class="form-label">Goals</label>
+                            <textarea id="goals" formControlName="goals" class="form-control" placeholder="Type your goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['goals'].invalid && (isFormsubmitted || userform2.controls['goals'].dirty || userform2.controls['goals'].touched)">
+                                <span *ngIf="userform2.controls['goals'].errors?.['required']">Goals are required.</span>
+                                <span *ngIf="userform2.controls['goals'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="achievements" class="form-label">Achievements</label>
+                            <textarea id="achievements" formControlName="achievements" class="form-control" placeholder="Type your achievements" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['achievements'].invalid && (isFormsubmitted || userform2.controls['achievements'].dirty || userform2.controls['achievements'].touched)">
+                                <span *ngIf="userform2.controls['achievements'].errors?.['required']">Achievements are required.</span>
+                                <span *ngIf="userform2.controls['achievements'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="expectations" class="form-label">Expectations</label>
+                            <textarea id="expectations" formControlName="expectations" class="form-control" placeholder="Manager defined goals" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['expectations'].invalid && (isFormsubmitted || userform2.controls['expectations'].dirty || userform2.controls['expectations'].touched)">
+                                <span *ngIf="userform2.controls['expectations'].errors?.['required']">Expectations are required.</span>
+                                <span *ngIf="userform2.controls['expectations'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <div class="form-group">
+                            <label for="remarks" class="form-label">Remarks</label>
+                            <textarea id="remarks" formControlName="remarks" class="form-control" placeholder="Manager's remarks" rows="3"></textarea>
+                            <div class="text-danger" *ngIf="userform2.controls['remarks'].invalid && (isFormsubmitted || userform2.controls['remarks'].dirty || userform2.controls['remarks'].touched)">
+                                <span *ngIf="userform2.controls['remarks'].errors?.['required']">Remarks are required.</span>
+                                <span *ngIf="userform2.controls['remarks'].errors?.['minlength']">Minimum 4 characters are required.</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-3">
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    </div>
+</form>
